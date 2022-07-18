@@ -1,1 +1,2 @@
 # LineDrawGeneration
+把LineDrwaGenertaionData压缩包解压放在对应文件夹里面（训练使用到的数据）
