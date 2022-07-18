@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>测试</title>
+        <style>
+                .content{
+                padding: 20px;
+                background: #DCDCDC;
+                }
+        </style>
+    </head>
+    <body>
+        <div class = "content">
+            <form method="post" action="http://localhost:5000/upload_image" enctype="multipart/form-data">
+               <input type="file"  value="选择检测图片" size="22" id="select_files" name="input_image" onchange="show_selectedImage()"/>
+               <br><br>
+               <canvas id="image_canvas" height="500" width="500"></canvas>
+               <text name="image_className" value=""/>
+               <br>
+
+               <input type="submit" class="button-new" value="生成线稿图" style="margin-top:15px;"/>
+            </form>
+
+            <script type="text/javascript">
+                function show_selectedImage(){
+                    /// get select files.
+                    var selected_files = document.getElementById("select_files").files;
+                    for(var file of selected_files){
+                        console.log(file.webkitRelativePath);
+                        /// read file content.
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onloadend = function(){
+                            /// deal data.
+                            var img = new Image();
+                            /// after loader, result storage the file content result.
+                            img.src = this.result;
+                            img.onload = function(){
+                                var canvas = document.getElementById("image_canvas");
+                                var cxt = canvas.getContext('2d');
+                                cxt.drawImage(img, 0, 0);
+                            }
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </body>
+</html>
